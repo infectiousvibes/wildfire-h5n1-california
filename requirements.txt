@@ -1,0 +1,19 @@
+# Core analysis environment (runs the full pipeline on synthetic data)
+numpy>=1.24
+pandas>=2.0
+matplotlib>=3.8
+scikit-learn>=1.3
+pyarrow>=14.0          # parquet I/O for the analysis panel
+
+# --- Real-data workflow (install when downloading actual datasets) ---
+# geopandas>=1.0        # county choropleths (TIGER shapefiles)
+# requests>=2.31        # APHIS CSV + FIRMS API
+# earthaccess>=0.10     # NASA Earthdata: MODIS MOD13A2 NDVI, MOD11A2 LST
+# rasterio>=1.3         # raster read/write
+# rasterstats>=0.19     # CDL zonal statistics to counties
+# xarray>=2024.1        # gridded data handling
+# shap>=0.45            # optional: SHAP interpretation on top of permutation importance
+
+# --- Development ---
+# jupyter
+# nbconvert

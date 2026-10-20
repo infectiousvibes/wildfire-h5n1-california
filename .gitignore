@@ -1,0 +1,21 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Data (raw downloads are large; see data/README.md for sources)
+data/raw/
+*.zip
+*.tif
+*.tiff
+*.hdf
+*.nc
+
+# OS / editor
+.DS_Store
+.idea/
+.vscode/
+
+# Jupyter checkpoints
+.ipynb_checkpoints/
