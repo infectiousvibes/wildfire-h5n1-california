@@ -19,11 +19,41 @@ Copying downloads into `data/raw/` and changing the flag is insufficient.
 | Planned input | Existing code / outstanding work |
 | --- | --- |
 | APHIS wild-bird detections | `fetch_aphis_wildbird()` reads a local CSV and aggregates H5N1 records; its expected field names need checking against the downloaded export |
-| NASA FIRMS active fire / radiative power | Local CSV loader and point-to-county join helpers exist; acquire and quality-check the appropriate study-period records |
+| NASA VIIRS active fire / radiative power | July–October 2025 SNPP 375 m detections are downloaded and validated; see the dataset below. Complete study-period acquisition and county integration remain outstanding |
 | MODIS vegetation and land-surface temperature | Acquisition and aggregation are outlined; the MODIS function raises `NotImplementedError` |
 | PRISM precipitation and temperature | County raster extraction is planned; the function raises `NotImplementedError` |
 | USDA CDL agricultural land share | Raster reclassification and aggregation are planned; the function raises `NotImplementedError` |
 | Census county boundaries | Required for true county joins and choropleths; the synthetic demonstration uses illustrative point positions |
+
+## Available observed SNPP VIIRS detections
+
+The [July–October 2025 dataset](processed/viirs_snpp_375m_202507_202510/README.md)
+contains four monthly point CSVs with 28,824 fire detections extracted from
+707 science-quality VNP14IMG.002 granules. The dataset folder includes a
+source manifest with SHA-256 checksums, daily catalog coverage, and validation
+results. The source NetCDF archive is 1.33 GB and is stored locally under
+`data/raw/viirs_snpp_375m_202507_202510/`.
+
+To reproduce the download with Python 3.11 or newer, run from the repository root:
+
+```sh
+python3 -m venv .venv
+source .venv/bin/activate
+python -m pip install -r requirements-viirs.txt
+python scripts/download_viirs_snpp.py
+```
+
+Enter your Earthdata credentials at the interactive terminal prompts. The
+script uses `persist=False`, reuses valid downloads, retries failed transfers,
+and writes the monthly extracts to `data/raw/firms_viirs_ca_YYYYMM.csv`.
+The committed copies under `data/processed/viirs_snpp_375m_202507_202510/`
+are byte-identical to those extracts. The files are derived from NASA swaths;
+the `firms_viirs_ca_` prefix matches the existing local CSV loader.
+
+The bounding box is `(-124.6, 32.4, -113.9, 42.1)` in west/south/east/north
+order. It includes places outside California. July 5–7, 2025 has no matching
+source swaths; missing observations must not be filled as zero fire activity.
+See the dataset README for field definitions and temporal precision.
 
 ## Proposed observational panel assembly
 

@@ -28,6 +28,21 @@ sampling, so they would not directly measure infection prevalence. The current
 synthetic dataset lets the model and evaluation code run without source-data
 credentials or downloads.
 
+## Observed fire detections available
+
+[SNPP VIIRS 375 m fire detections for July–October 2025](data/processed/viirs_snpp_375m_202507_202510/README.md)
+are available as four monthly CSVs: **28,824 detections** extracted from 707
+NASA VNP14IMG Collection 002 granules. The data include coordinates, fire
+radiative power, detection confidence, and source-granule identifiers.
+The California bounding box includes areas outside the state. July 5–7 has
+no matching source swaths and is documented as missing observation coverage.
+
+The [interactive Earthdata downloader](scripts/download_viirs_snpp.py) preserves
+the original NetCDF files in the Git-ignored `data/raw/` directory. Source
+URLs, checksums, daily catalog coverage, and validation results accompany the
+committed CSVs. These observations are a separate input dataset; the executed
+notebooks and model results still use synthetic data.
+
 ## Skills demonstrated in the working code
 
 | Capability | Implementation |

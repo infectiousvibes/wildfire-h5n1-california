@@ -1,0 +1,22 @@
+[
+  {
+    "filename": "firms_viirs_ca_202507.csv",
+    "bytes": 1286284,
+    "sha256": "39723e958da550bdd3cf9873c38ca450d02cd4d22fe090801bfb1f3077f97f1c"
+  },
+  {
+    "filename": "firms_viirs_ca_202508.csv",
+    "bytes": 2030200,
+    "sha256": "adf2bcf77df7901b15112e0bd605c91d05a0332dd89e4078872287510be710dc"
+  },
+  {
+    "filename": "firms_viirs_ca_202509.csv",
+    "bytes": 1421534,
+    "sha256": "f7634f1a953ed02c3abd9873184049a880aae787dbd58f687f8cad17a419ca03"
+  },
+  {
+    "filename": "firms_viirs_ca_202510.csv",
+    "bytes": 444999,
+    "sha256": "3df5e33cf9306a05f885937b53b257cf621d4c5efe64eec980898d195889ea13"
+  }
+]

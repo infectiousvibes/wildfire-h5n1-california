@@ -1,0 +1,57 @@
+{
+  "validated_utc": "2026-10-21T20:01:10.232673+00:00",
+  "source_granules": 707,
+  "source_bytes": 1334237870,
+  "sha256_verified": 707,
+  "total_detections": 28824,
+  "bbox": [
+    -124.6,
+    32.4,
+    -113.9,
+    42.1
+  ],
+  "temporal_utc": [
+    "2025-07-01T00:00:00Z",
+    "2025-10-31T23:59:59Z"
+  ],
+  "days_with_matching_swaths": 120,
+  "days_without_matching_swaths": [
+    "2025-07-05",
+    "2025-07-06",
+    "2025-07-07"
+  ],
+  "monthly_csvs": [
+    {
+      "month": "2025-07",
+      "csv": "data/raw/firms_viirs_ca_202507.csv",
+      "detections": 7137,
+      "frp_missing": 0,
+      "frp_negative": 0,
+      "bytes": 1286284
+    },
+    {
+      "month": "2025-08",
+      "csv": "data/raw/firms_viirs_ca_202508.csv",
+      "detections": 11336,
+      "frp_missing": 0,
+      "frp_negative": 0,
+      "bytes": 2030200
+    },
+    {
+      "month": "2025-09",
+      "csv": "data/raw/firms_viirs_ca_202509.csv",
+      "detections": 7892,
+      "frp_missing": 0,
+      "frp_negative": 0,
+      "bytes": 1421534
+    },
+    {
+      "month": "2025-10",
+      "csv": "data/raw/firms_viirs_ca_202510.csv",
+      "detections": 2459,
+      "frp_missing": 0,
+      "frp_negative": 0,
+      "bytes": 444999
+    }
+  ]
+}

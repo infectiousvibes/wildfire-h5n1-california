@@ -1,0 +1,5 @@
+# Standalone archived SNPP VIIRS downloader; Python 3.11 or newer.
+earthaccess>=0.19,<1
+h5py>=3.12,<4
+pandas>=2.0,<4
+requests>=2.31,<3
