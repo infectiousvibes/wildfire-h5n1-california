@@ -70,7 +70,7 @@ See the dataset README for field definitions and temporal precision.
 
 1. Validate source schemas, coverage, dates, and surveillance definitions.
 2. Aggregate the detection outcome and environmental measurements to compatible county-month keys.
-3. Complete quality-masked raster extraction and document anomaly reference periods.
+3. Apply product quality masks and document composite timing, scaling, and coverage.
 4. Join against a complete county-month grid; distinguish unobserved surveillance from confirmed zero detections.
 5. Construct within-county disturbance lags using a defined prior observation window.
 6. Apply geographic and temporal validation, matched feature comparisons, and dependence-aware uncertainty checks.

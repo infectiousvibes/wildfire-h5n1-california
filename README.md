@@ -20,7 +20,7 @@ not evidence of a causal wildfire effect or a validated operational risk model.
 Land-use conditions, seasonal climate, and environmental disturbances may
 influence the wildlife–agriculture interface. This prototype turns that
 research question into an explicit county-month modeling design: do lagged
-fire activity, vegetation anomalies, and land-surface temperature provide
+fire activity, vegetation condition (NDVI), and land-surface temperature provide
 useful predictive information for a surveillance outcome?
 
 The intended observational outcome is at least one reported H5N1 wild-bird
@@ -60,7 +60,7 @@ This is a tabular ML workflow with spatial grouping. Grouping by county tests
 transfer to held-out counties; it does not provide a forward-in-time forecasting
 test or separate neighboring counties with a spatial buffer.
 
-## What is implemented, and what remains
+## What is implemented
 
 | Component | Status |
 | --- | --- |
@@ -146,17 +146,18 @@ Execute in order:
 3. [Fit and evaluate the models](notebooks/03_machine_learning.ipynb).
 4. [Interpret the fitted model](notebooks/04_model_interpretation.ipynb).
 
-Run from the `notebooks/` directory, as assumed by their import paths. Keep
-`USE_SYNTHETIC = True` for the implemented workflow. Setting it to `False`
-does not automatically download or integrate real datasets. Generated figures
-and metrics overwrite the corresponding example files.
+These notebooks are the synthetic teaching workflow and assume they are run
+from the `notebooks/` directory. Keep `USE_SYNTHETIC = True` when running them.
+The observational workflow runs separately from the repository root using the
+commands above; changing the notebook flag does not invoke it. Generated
+figures and metrics overwrite the corresponding synthetic example files.
 
 ## Interpretation and next research steps
 
-- The current bootstrap resamples individual rows; it does not preserve county or temporal dependence. Group-aware uncertainty estimates are needed for observational inference.
+- The synthetic notebook bootstrap resamples individual rows; it does not preserve county or temporal dependence and should not be used for observational inference.
 - Notebook 04 computes permutation importance on the training data and maps fitted probabilities. These are exploratory interpretation outputs, not held-out importance or independently validated risk maps.
 - Synthetic coordinates and identifiers are illustrative and must not be used as actual county geography or official FIPS codes.
-- First-month missing disturbance lags are filled with zero by the feature code; a real-data analysis should define a prior exposure window and missingness policy.
+- In the synthetic workflow, first-month missing disturbance lags are filled with zero. The observational workflow instead supplies a prior exposure month and imputes remaining missing values within each training fold.
 - The observational workflow includes raster processing, surveillance-quality checks, feature-set ablation, temporal evaluation, calibration, and county-bootstrap uncertainty; its weak temporal results do not support decision-support use.
 
 The project demonstrates research design, reproducible Python model engineering,
