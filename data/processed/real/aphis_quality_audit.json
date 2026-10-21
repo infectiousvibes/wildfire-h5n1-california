@@ -1,0 +1,21 @@
+{
+  "source_rows": 19386,
+  "source_latest_date": "2026-04-22",
+  "california_wild_rows": 1153,
+  "study_rows": 1008,
+  "explicit_h5n1_rows": 865,
+  "inclusive_h5_rows": 1008,
+  "excluded_unknown_county_study_rows": 2,
+  "duplicate_full_rows": 449,
+  "duplicate_note": "Matching fields may represent separate birds; records are not deduplicated without identifiers. Binary outcome is unaffected by exact repeats.",
+  "strain_counts": {
+    "EA/AM H5N1": 542,
+    "EA H5N1": 321,
+    "EA H5": 132,
+    "EA H5 mixed": 6,
+    "EA/AM H5N4": 2,
+    "EA/AM H5 mixed": 2,
+    "EA H5N1 mixed": 2,
+    "EA/AM H5": 1
+  }
+}

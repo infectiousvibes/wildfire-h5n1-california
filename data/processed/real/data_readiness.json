@@ -1,0 +1,94 @@
+{
+  "audited_utc": "2026-10-21T21:12:46.242764+00:00",
+  "outcome_window": [
+    "2022-01",
+    "2025-07"
+  ],
+  "environmental_window": [
+    "2021-12",
+    "2025-06"
+  ],
+  "expected_counties": 58,
+  "expected_environmental_months": 43,
+  "environmental_datasets": {
+    "prism": {
+      "path": "data/processed/real/prism_county_month.csv",
+      "rows": 2494,
+      "counties": 58,
+      "months": 43,
+      "absent_months": [],
+      "entirely_missing_months": {
+        "tmean": [],
+        "ppt": []
+      },
+      "missing_values": {
+        "tmean": 0,
+        "ppt": 0
+      }
+    },
+    "fire": {
+      "path": "data/processed/real/fire_county_month.csv",
+      "rows": 2494,
+      "counties": 58,
+      "months": 43,
+      "absent_months": [],
+      "entirely_missing_months": {
+        "fire_pixel_days": [],
+        "frp_mw_sum": []
+      },
+      "missing_values": {
+        "fire_pixel_days": 1,
+        "frp_mw_sum": 1
+      }
+    },
+    "ndvi": {
+      "path": "data/processed/real/ndvi_county_month.csv",
+      "rows": 2436,
+      "counties": 58,
+      "months": 42,
+      "absent_months": [
+        "2022-10"
+      ],
+      "entirely_missing_months": {
+        "ndvi": [
+          "2022-10"
+        ]
+      },
+      "missing_values": {
+        "ndvi": 5
+      }
+    },
+    "lst": {
+      "path": "data/processed/real/lst_county_month.csv",
+      "rows": 2494,
+      "counties": 58,
+      "months": 43,
+      "absent_months": [],
+      "entirely_missing_months": {
+        "lst": []
+      },
+      "missing_values": {
+        "lst": 0
+      }
+    }
+  },
+  "aphis": {
+    "rows": 318,
+    "counties_with_reports": 48,
+    "explicit_h5n1_records": 865,
+    "inclusive_h5_records": 1008,
+    "note": "Sparse report counts; absent reports do not establish tested-negative surveillance."
+  },
+  "landcover": {
+    "rows": 58,
+    "complete": true
+  },
+  "county_reference": {
+    "rows": 58,
+    "source": "2024 Census TIGER/Line counties, STATEFP == 06"
+  },
+  "inputs_ready_for_panel": true,
+  "blocking_entirely_missing_predictors": {},
+  "missing_month_policy": "Absent or QA-filtered satellite composites remain missing and are imputed from training-fold medians with missingness indicators.",
+  "note": "The analysis ends in July 2025 because the public MODIS COG archive has contiguous multi-product gaps after that point. The separate SNPP VIIRS detections are not substituted into Terra MODIS features."
+}

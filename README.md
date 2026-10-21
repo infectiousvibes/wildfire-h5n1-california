@@ -9,10 +9,11 @@ wild-bird disease detections. It complements my
 by developing a prediction-focused workflow with nonlinear models and
 geographically grouped evaluation.
 
-**Current status: the executed notebooks, committed panel, figures, and metrics
-use synthetic data.** They demonstrate the modeling workflow and are not
-findings about actual wildfire effects, H5N1 occurrence, or operational disease
-risk. The real-data acquisition and panel-assembly workflow is incomplete.
+**Current status: the repository now contains separate synthetic and
+observational workflows.** The observational benchmark uses public APHIS,
+PRISM, Terra MODIS, USDA CDL, and Census data for 58 California counties from
+January 2022 through July 2025. It is an exploratory retrospective analysis,
+not evidence of a causal wildfire effect or a validated operational risk model.
 
 ## Research motivation
 
@@ -24,8 +25,8 @@ useful predictive information for a surveillance outcome?
 
 The intended observational outcome is at least one reported H5N1 wild-bird
 detection in a county-month. Reported detections depend on surveillance and
-sampling, so they would not directly measure infection prevalence. The current
-synthetic dataset lets the model and evaluation code run without source-data
+sampling, so they do not directly measure infection prevalence. The synthetic
+dataset remains available so the teaching workflow can run without source-data
 credentials or downloads.
 
 ## Observed fire detections available
@@ -40,8 +41,9 @@ no matching source swaths and is documented as missing observation coverage.
 The [interactive Earthdata downloader](scripts/download_viirs_snpp.py) preserves
 the original NetCDF files in the Git-ignored `data/raw/` directory. Source
 URLs, checksums, daily catalog coverage, and validation results accompany the
-committed CSVs. These observations are a separate input dataset; the executed
-notebooks and model results still use synthetic data.
+committed CSVs. These SNPP observations remain a separate dataset; the
+observational benchmark uses consistent Terra MODIS fire measurements across
+the full analysis window.
 
 ## Skills demonstrated in the working code
 
@@ -63,15 +65,44 @@ test or separate neighboring counties with a spatial buffer.
 | Component | Status |
 | --- | --- |
 | Synthetic panel, feature engineering, model fitting, and figure generation | Implemented and demonstrated in four executed notebooks |
-| APHIS CSV aggregation and FIRMS point-to-county aggregation | Helper functions are present; not a completed real-data analysis |
-| MODIS, PRISM, and CDL acquisition / raster processing | Outlined; relevant functions currently raise `NotImplementedError` |
-| Integrated real-data panel | Not implemented; notebook 01 stops in real-data mode |
-| Real-data validation, feature-set ablation, calibration, and dashboard deployment | Future work |
+| APHIS surveillance aggregation | Implemented with schema, subtype, county, date, and duplicate audits |
+| Terra MODIS fire, NDVI, and land-surface temperature | Implemented with product QA masks, county aggregation, archive coverage, and one-month lags |
+| PRISM temperature and precipitation | Implemented as county-weighted monthly summaries |
+| USDA CDL cultivated-land share and Census county boundaries | Implemented for all 58 counties |
+| Integrated observational panel and validation | Implemented with county-held-out and 2025 temporal evaluation |
 
-The environmental sources proposed for a real-data extension are APHIS
-surveillance, NASA FIRMS fire detections, MODIS NDVI/LST, PRISM climate, USDA
-CDL land cover, and Census boundaries. See [data notes](data/README.md) for the
-current implementation boundary and planned inputs.
+See the [data notes](data/README.md), [observational data dictionary](data/processed/real/README.md),
+and [analysis plan](docs/real_data_analysis_plan.md) for sources, processing,
+coverage decisions, and interpretation limits.
+
+## Observational benchmark results
+
+The real panel contains **2,494 county-months**, including 280 months with at
+least one explicit H5N1 wild-bird report. In county-held-out evaluation, the
+random-forest climate/seasonality/land-cover baseline reached ROC-AUC 0.743 and
+average precision 0.283. Adding lagged fire, NDVI, and land-surface temperature
+did not improve held-out performance: ROC-AUC was 0.725 and average precision
+was 0.264. The paired average-precision difference was -0.019 (95% county
+bootstrap interval -0.053 to +0.015).
+
+The January–July 2025 temporal holdout was much weaker. The baseline forest was
+near chance (ROC-AUC 0.506; average precision 0.110), and the full forest was
+below chance (ROC-AUC 0.462; average precision 0.099). These results do not
+support forecasting use or a claim that the added environmental variables
+improve prediction. Full metrics, intervals, predictions, and split audits are
+in [`results/real/`](results/real/analysis_summary.md).
+
+Run the observational workflow from the repository root:
+
+```sh
+python3 -m venv .venv
+source .venv/bin/activate
+python -m pip install -r requirements-real.txt
+python -m src.real_data audit
+python -m src.real_data panel
+python -m unittest discover -s tests -v
+python -m src.real_models --bootstrap 1000
+```
 
 ## Synthetic benchmark results
 
@@ -126,7 +157,7 @@ and metrics overwrite the corresponding example files.
 - Notebook 04 computes permutation importance on the training data and maps fitted probabilities. These are exploratory interpretation outputs, not held-out importance or independently validated risk maps.
 - Synthetic coordinates and identifiers are illustrative and must not be used as actual county geography or official FIPS codes.
 - First-month missing disturbance lags are filled with zero by the feature code; a real-data analysis should define a prior exposure window and missingness policy.
-- A real-data extension needs completed raster processing, surveillance-quality checks, feature-set ablation, temporal evaluation, calibration, and validation of uncertainty before decision-support use.
+- The observational workflow includes raster processing, surveillance-quality checks, feature-set ablation, temporal evaluation, calibration, and county-bootstrap uncertainty; its weak temporal results do not support decision-support use.
 
 The project demonstrates research design, reproducible Python model engineering,
 and geographic evaluation while making the difference between an implemented
@@ -134,8 +165,9 @@ prototype and validated surveillance evidence explicit.
 
 ## Repository contents and license
 
-`src/` contains reusable Python modules; `notebooks/` records the workflow;
-`figures/` and `results/` contain synthetic examples; `data/processed/` contains
-the demonstration panel. Raw data and credentials are excluded.
+`src/` contains reusable Python modules; `notebooks/` records the synthetic
+workflow; and the `real` subdirectories under `data/processed/`, `figures/`,
+and `results/` contain the observational benchmark. Raw rasters, source records,
+and credentials are excluded.
 
 MIT license — see [LICENSE](LICENSE).

@@ -1,0 +1,10 @@
+-r requirements.txt
+# NumPy bound avoids rasterio 1.4's deprecated array-shape API in NumPy 2.5.
+numpy>=1.26,<2.3
+geopandas>=1.0,<2
+rasterio>=1.4,<1.5
+requests>=2.31
+planetary-computer>=1.0,<2
+# Authenticated, archived VIIRS SNPP 375 m active-fire downloads.
+earthaccess>=0.19,<1
+h5py>=3.12,<4

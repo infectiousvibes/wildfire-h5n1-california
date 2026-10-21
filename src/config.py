@@ -20,6 +20,14 @@ USE_SYNTHETIC = True
 RANDOM_STATE = 42
 TARGET = "y"  # 1 = >=1 confirmed H5N1 wild-bird detection in county-month
 
+# Observational analysis window. The public MODIS COG archive used by the
+# reproducible workflow has multi-month gaps after July 2025. The real-data
+# benchmark therefore ends at the latest outcome month whose lagged inputs are
+# available, rather than treating absent satellite observations as zeros.
+OBS_START = "2022-01"
+OBS_END = "2025-07"
+OBS_ENV_START = "2021-12"
+
 PANEL_FILE = DATA_PROC / "panel.parquet"
 
 # Model feature sets -------------------------------------------------------
